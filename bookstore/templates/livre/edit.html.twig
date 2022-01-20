@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Livre{% endblock %}
+
+{% block body %}
+
+    <h1 align="center">  Modifier livre </h1>
+{% block stylesheet %}
+        <style>       
+body{
+        background-image: url("../images/biblio2.jpg");
+        
+    }
+        
+        </style>
+
+    {% endblock %}
+    {{ include('livre/_form.html.twig', {'button_label': 'Update'}) }}
+
+
+{% endblock %}

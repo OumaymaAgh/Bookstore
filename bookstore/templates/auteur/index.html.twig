@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Auteur index{% endblock %}
+
+{% block body %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+       <li>
+    <a class="nav-link " href="{{ path('home2') }}">Home</a>
+
+</li>
+        
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('livre_index') }}">Livres</a>
+        </li>
+        <li class="nav-item">
+          <a class="navbar-brand" href="{{ path('auteur_index') }}">Auteurs</a>
+        </li>
+       <li class="nav-item">
+          <a class="nav-link" href="{{ path('genre_index') }}">Genres</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('app_logout') }}">Déconnecter</a>
+        </li> 
+    </ul>
+    </div>
+  </div>
+</nav>
+</br>
+    <h1 align="center">List des auteurs</h1>
+    <div class= "div2">
+
+    {% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('auteur_new') }}" class="btn btn-success" align="center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+            </svg>
+            </a>
+	{% endif %}
+    
+            </br>
+    </div>
+<div class ="divTable">
+    <table class="table" >
+        <thead align="center">
+            <tr class ="table-primary">
+                <th>Id</th>
+                <th>Nom_prenom</th>
+                <th>Sexe</th>
+                <th>DateDeNaissance</th>
+                <th>Nationalite</th>
+                <th>Afficher</th>
+            </tr>
+        </thead>
+        <tbody align="center">
+        {% for auteur in auteurs %}
+            <tr class ="table-info">
+                <td>{{ auteur.id }}</td>
+                <td>{{ auteur.nomPrenom }}</td>
+                <td>{{ auteur.sexe }}</td>
+                <td>{{ auteur.dateDeNaissance ? auteur.dateDeNaissance|date('Y-m-d') : '' }}</td>
+                <td>{{ auteur.nationalite }}</td>
+                <td>
+                     <a href="{{ path('auteur_show', {'id': auteur.id}) }}"  class="btn btn-info" > 
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                        </svg>
+                    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% block stylesheet %}
+        <style>
+            table,th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            }
+
+            .divTable{
+            display: block;
+            margin-left: 150px;
+            margin-right: 150px;
+            margin-top : 20px ; 
+            }
+            
+
+            .div2{
+                                 margin-left: auto;
+    margin-right: auto;
+    padding-left : 890px;
+    width: 6em
+
+            }
+
+            
+
+        
+        </style>
+    {% endblock %}
+{% endblock %}
